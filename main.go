@@ -3,7 +3,7 @@ package main
 import (
 	"api-example/api/controllers"
 	"api-example/api/routes"
-	"api-example/infraestructures/gorm"
+	"api-example/infrastructures/gorm"
 	"api-example/repositories"
 	"api-example/services"
 	"fmt"
