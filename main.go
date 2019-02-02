@@ -31,13 +31,13 @@ func main() {
 	}()
 	Migrate(&dbHandler)
 	logs.NewLog()
-	var a controllers.StudentController
+	var student controllers.StudentController
 	var ro routes.MyRoutes
 	err = g.Provide(
 		&inject.Object{Value: &dbHandler},
 		&inject.Object{Value: &repositories.StudentRepository{}},
 		&inject.Object{Value: &services.StudentService{}},
-		&inject.Object{Value: &a},
+		&inject.Object{Value: &student},
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -47,7 +47,7 @@ func main() {
 		log.Fatal(err)
 	}
 	// adding controllers to routes
-	ro.Student = a
+	ro.Student = student
 	ro.RegisterRoutes(r)
 	r.Run(":3000")
 }
