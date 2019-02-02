@@ -3,11 +3,12 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-
 	"api-example/dto"
 	"api-example/interfaces"
 	"api-example/models"
+
+	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 type StudentController struct {
@@ -34,11 +35,13 @@ func (sc *StudentController) CreateStudent(c *gin.Context) {
 	var student dto.Student
 	err := c.ShouldBindJSON(&student)
 	if err != nil {
+		log.Error(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	resp, err := sc.Service.CreateStudent(&student)
 	if err != nil {
+		log.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
