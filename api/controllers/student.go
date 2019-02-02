@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"api-example/dto"
 	"api-example/interfaces"
 	"api-example/models"
 )
@@ -30,21 +31,19 @@ func (sc *StudentController) GetStudentByID(c *gin.Context) {
 }
 
 func (sc *StudentController) CreateStudent(c *gin.Context) {
-	src := models.Student{}
-	src.Name = "Ivan"
+	var student dto.Student
+	err := c.ShouldBindJSON(&student)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	resp, err := sc.Service.CreateStudent(&student)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
 
-	src.Age = 32
-	src.Email = "asdasd@asdsad.com"
-	src.Password = "12345678"
-	add := models.Address{}
-	add.City = "Merida"
-	add.State = "Yucatan"
-	add.Street = "calle 63"
-	add.IsActive = true
-	src.Address = add
-	sc.Service.CreateStudent(&src)
-
-	c.JSON(http.StatusOK, src)
+	c.JSON(http.StatusOK, resp)
 }
 
 func NewStudentController() *StudentController {

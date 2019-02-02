@@ -26,6 +26,9 @@ func main() {
 		log.Println(err)
 		panic(err)
 	}
+	defer func() {
+		dbHandler.Conn.Close()
+	}()
 	Migrate(&dbHandler)
 	logs.NewLog()
 	var a controllers.StudentController

@@ -1,6 +1,6 @@
 package models
 
-import "github.com/gofrs/uuid"
+import "github.com/satori/go.uuid"
 
 type Address struct {
 	ID     uuid.UUID `gorm:"type:uuid;primary_key;default:uuid_generate_v4()"`
