@@ -2,6 +2,7 @@ package services
 
 import (
 	"api-example/interfaces"
+	"api-example/models"
 	"fmt"
 )
 
@@ -16,6 +17,11 @@ func (service *StudentService) GetStudents() {
 func (service *StudentService) GetStudentById(id int32) {
 	fmt.Println("En GetStudeintById")
 	service.Repository.GetStudentByIdi(id)
+}
+
+func (service *StudentService) CreateStudent(student *models.Student) {
+	fmt.Println("En GetStudeintById")
+	service.Repository.CreateStudentRepository(student)
 }
 
 func NewStudentService(rep interfaces.IStudentRepository) StudentService {

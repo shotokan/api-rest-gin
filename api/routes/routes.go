@@ -7,8 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterRoutes(r *gin.Engine, student *controllers.StudentController) {
+type MyRoutes struct {
+	Student controllers.StudentController
+}
+
+func (mr MyRoutes) RegisterRoutes(r *gin.Engine) {
 	apiV1 := r.Group("/v1")
 
-	v1.StudentRoutes(apiV1.Group("/students"), student)
+	v1.StudentRoutes(apiV1.Group("/students"), &mr.Student)
 }

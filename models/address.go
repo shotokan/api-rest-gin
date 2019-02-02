@@ -1,11 +1,15 @@
 package models
 
-import "time"
+import "github.com/gofrs/uuid"
 
 type Address struct {
-	Street    string
-	City      string
-	State     string
-	UpdatedAt time.Time
+	ID     uuid.UUID `gorm:"type:uuid;primary_key;default:uuid_generate_v4()"`
+	Street string    `sql:"type:varchar(200)" gorm:"not null"`
+	City   string    `sql:"type:varchar(100)" gorm:"not null"`
+	State  string    `sql:"type:varchar(100)" gorm:"not null"`
 	BaseModel
+}
+
+func (Address) TableName() string {
+	return "address"
 }
