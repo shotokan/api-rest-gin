@@ -1,4 +1,3 @@
-vgo build
 go get github.com/struCoder/pmgo
 https://github.com/struCoder/pmgo
 
